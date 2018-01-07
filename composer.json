@@ -1,0 +1,25 @@
+{
+    "name": "verkoo/api-core",
+    "description": "Common Features for Verkoo",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Javier Martinez",
+            "email": "fjmartinez@disitec.es"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "laravel/passport": "^4.0",
+        "spatie/laravel-google-calendar": "^1.1"
+    },
+    "require-dev": {
+        "laravel/framework": "^5.4",
+        "baum/baum": "~1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Verkoo\\Common\\": "src/"
+        }
+    }
+}
