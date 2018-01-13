@@ -16,9 +16,10 @@
     ]); ?>
 </script>
 
-@if(app()->environment('production', 'staging'))
-    <script src="{{ asset('js/main.js') }}"></script>
-@else
+@if(config('verkoo.hot_reload'))
     <script src="http://localhost:8080/main.js"></script>
+@else
+    <script src="{{ asset('js/main.js') }}"></script>
 @endif
+
 </html>
