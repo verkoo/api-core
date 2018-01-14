@@ -16,7 +16,7 @@ abstract class Ticket
 
     protected function getDate() 
     {
-        return Carbon::now()->format('d-m-Y h:i:s A');;
+        return Carbon::now()->format('d-m-Y h:i:s A');
     }
 
     protected function header()
