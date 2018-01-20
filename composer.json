@@ -21,7 +21,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Verkoo\\Common\\": "src/"
+            "Verkoo\\Common\\": "src/",
+            "Verkoo\\Common\\Tests\\": "test/"
         }
     }
 }

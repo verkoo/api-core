@@ -17,7 +17,6 @@ class KitchenTicket extends Ticket
 
     protected function getText()
     {
-        return $this->normalFont();
         $text = $this->normalFont()
             ->align('center')
             ->doubleHeight()

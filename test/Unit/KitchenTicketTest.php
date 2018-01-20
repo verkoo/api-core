@@ -1,44 +1,46 @@
 <?php
+namespace Verkoo\Common\Tests\Unit;
 
 use Illuminate\Support\Collection;
-use Orchestra\Testbench\TestCase;
-use Verkoo\Common\Tickets\KitchenTicket;
+use Verkoo\Common\Tests\BaseTestCase;
 
-class KitchenTicketTest extends TestCase
+class KitchenTicketTest extends BaseTestCase
 {
     /** @test */
-    public function RunningMigration()
+    public function getText_return_expected_data()
     {
-//        $this->assertEquals('NORMALFONT', $stub->normalFont());
-        $lines = new Collection();
+        $lineA = new \stdClass();
+        $lineA->remaining = 2;
+        $lineA->product_name = 'PRODUCT A';
+
+        $lineB = new \stdClass();
+        $lineB->parent = 12;
+        $lineB->product_name = 'PRODUCT B';
+
+        $lines = new Collection([
+            $lineA,
+            $lineB
+        ]);
         $table = 1;
-        $mock = \Mockery::mock('Verkoo\Common\Tickets\KitchenTicket', [
+        $ticket = \Mockery::mock('Verkoo\Common\Tickets\KitchenTicket', [
             $lines,
             $table,
-        ])->shouldAllowMockingProtectedMethods()->makePartial();;
-        $mock->shouldReceive([
-            'normalFont' => 'NORMALFONT',
-        ]);
-        $ticket = new KitchenTicket($lines, $table);
-        var_dump($this->invokeMethod($ticket, 'getText'));
-//        $this->assertEquals('NORMALFONT', $this->invokeMethod($ticket, 'getText'));
-    }
+        ])
+            ->shouldAllowMockingProtectedMethods()
+            ->makePartial();
 
-    /**
-     * Call protected/private method of a class.
-     *
-     * @param object &$object    Instantiated object that we will run method on.
-     * @param string $methodName Method name to call
-     * @param array  $parameters Array of parameters to pass into method.
-     *
-     * @return mixed Method return.
-     */
-    public function invokeMethod(&$object, $methodName, array $parameters = array())
-    {
-        $reflection = new \ReflectionClass(get_class($object));
-        $method = $reflection->getMethod($methodName);
-        $method->setAccessible(true);
+        $ticket->shouldReceive('normalFont')->andReturnSelf();
+        $ticket->shouldReceive('align')->once()->with('center')->andReturnSelf();
+        $ticket->shouldReceive('doubleHeight')->andReturnSelf();
+        $ticket->shouldReceive('getDate')->once()->andReturn('DATE');
+        $ticket->shouldReceive('newLine')->once()->with('MESA 1');
+        $ticket->shouldReceive('newLine')->once()->with('[DATE]');
+        $ticket->shouldReceive('newEmptyLine')->once();
+        $ticket->shouldReceive('newLine')->once()->with('CANT ------ PRODUCTO -------');
+        $ticket->shouldReceive('newLine')->once()->with('2       PRODUCT A');
+        $ticket->shouldReceive('newLine')->once()->with('   ->       PRODUCT B');
+        $ticket->shouldReceive('cutPaper')->once()->andReturn('');
 
-        return $method->invokeArgs($object, $parameters);
+        $this->invokeMethod($ticket, 'getText');
     }
 }
