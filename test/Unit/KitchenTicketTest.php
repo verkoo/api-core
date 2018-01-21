@@ -7,7 +7,7 @@ use Verkoo\Common\Tests\BaseTestCase;
 class KitchenTicketTest extends BaseTestCase
 {
     /** @test */
-    public function getText_return_expected_data()
+    public function getText_returns_expected_data()
     {
         $lineA = new \stdClass();
         $lineA->remaining = 2;
@@ -42,5 +42,30 @@ class KitchenTicketTest extends BaseTestCase
         $ticket->shouldReceive('cutPaper')->once()->andReturn('');
 
         $this->invokeMethod($ticket, 'getText');
+    }
+
+    /** @test */
+    public function getPrinter_returns_first_line_printer()
+    {
+        $lineA = new \stdClass();
+        $lineA->printer = 'PRINTER 1';
+
+        $lineB = new \stdClass();
+        $lineB->printer = 'PRINTER 2';
+
+        $lines = new Collection([
+            $lineA,
+            $lineB
+        ]);
+        $ticket = \Mockery::mock('Verkoo\Common\Tickets\KitchenTicket', [
+            $lines,
+            'TABLE',
+        ])
+            ->shouldAllowMockingProtectedMethods()
+            ->makePartial();
+
+        $result = $this->invokeMethod($ticket, 'getPrinter');
+
+        $this->assertEquals('PRINTER 1', $result);
     }
 }
