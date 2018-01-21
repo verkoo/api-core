@@ -8,9 +8,7 @@ class OpenDrawerTicket extends Ticket
 {
     protected function getText()
     {
-        $text = $this->openDrawer();
-        
-        return $text;
+        return $this->openDrawer();
     }
 
     protected function getPrinter()

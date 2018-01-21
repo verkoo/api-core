@@ -1,5 +1,5 @@
 <?php
-namespace Verkoo\Common\Tests\Unit;
+namespace Verkoo\Common\Tests\Unit\Tickets;
 
 use Illuminate\Support\Collection;
 use Verkoo\Common\Tests\BaseTestCase;
