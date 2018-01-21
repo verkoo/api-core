@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->date('date');
             $table->string('number');
-            $table->unsignedInteger('payment_id');
+            $table->unsignedInteger('payment_id')->nullable();
             $table->foreign('payment_id')->references('id')->on('payments');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
