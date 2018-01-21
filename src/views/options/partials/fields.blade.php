@@ -73,4 +73,4 @@
 <p class="control has-top-padding">
     {!! Form::checkbox('break_down_taxes_in_ticket', 1, $options->break_down_taxes_in_ticket) !!} Desglosar Iva en Ticket
 </p>
-@include("verkooCommon::options.partials.fields-" . \Verkoo\Common\Entities\Settings::get('module'))
+@include("verkooCommon::options.partials.fields-" . config('verkoo.module'))
